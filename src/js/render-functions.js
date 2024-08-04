@@ -3,7 +3,7 @@
 import SimpleLightbox from "simplelightbox";
 import "simplelightbox/dist/simple-lightbox.min.css";
 
-export function creatMarkupImages(images) {
+export function createMarkupImages(images) {
     const gallery = document.querySelector('.js-gallery');
     const markup = images.map(({ webformatURL, largeImageURL, tags, likes, views, comments, downloads }) => `
         <a href="${largeImageURL}" class="gallery__link">

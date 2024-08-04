@@ -1,7 +1,10 @@
 'use strict';
 
-export function searchImagesByQuery(query) {
-    const URL = "https://pixabay.com/api/";
+import axios from 'axios';
+
+axios.defaults.baseURL = "https://pixabay.com/api/";
+
+export async function searchImagesByQuery(query) {
     const API_KEY = "45152929-a1340ee97784cf10d0ad70de4";
     // Так не потрібно зберігати ключі
 
@@ -13,12 +16,10 @@ export function searchImagesByQuery(query) {
         safesearch: true,
     });
 
-    return fetch(`${URL}?${params}`)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(response.status);
-            }
-            return response.json();
-        })
-        .catch(console.log);
+    try {
+        const response = await axios.get('', { params });
+        return response.data;
+    } catch (err) {
+        console.error(err);
+    }
 }

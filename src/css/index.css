@@ -77,6 +77,8 @@
     letter-spacing: 0.48px;
 }
 
+
+/* Loader */
 .wrap-loader {
     text-align: center;
     padding-bottom: 50px;
@@ -115,4 +117,34 @@
     100% {
         transform: rotate(360deg);
     }
+}
+
+
+/* Button Load more */
+.button.is-hidden {
+    display: none;
+}
+
+.btn-primary-container {
+    text-align: center;
+    padding-top: 24px;
+}
+
+.btn-primary {
+    margin: 0 auto;
+    box-sizing: border-box;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 16px;
+    width: 125px;
+    height: 40px;
+    background-color: #4e75ff;
+}
+
+.btn-primary .label-btn-primary {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 1.5;
+    letter-spacing: 0.04em;
+    color: #fff;
 }
