@@ -106,6 +106,9 @@ async function handleLoadMore() {
             left: rect.width,
             behavior: 'smooth',
         });
+
+        // console.log(rect.height);
+
     } catch (error) {
         console.log(error);
     } finally {
