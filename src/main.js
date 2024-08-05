@@ -9,7 +9,7 @@ import { toggleLoader } from './js/loader.js';
 import ButtonService from './js/loadMoreService.js';
 
 const loadMoreBtnElement = document.querySelector('.btn-primary');
-const loadMoreBtn = new ButtonService(loadMoreBtnElement, '.btn-primary-container');
+const loadMoreBtn = new ButtonService(loadMoreBtnElement, '.is-hidden');
 loadMoreBtn.hide();
 
 const params = {
@@ -55,7 +55,7 @@ async function searchFoto(event) {
             loadMoreBtn.hide();
         }
         if (!hits.length) {
-            loadMoreBtn.enable();
+            loadMoreBtn.show();
             iziToast.error({
                 message: `Sorry, there was an error fetching the images. Please try again later!`,
                 position: 'topRight',
@@ -66,7 +66,6 @@ async function searchFoto(event) {
         }
 
         createMarkupImages(hits);
-        lightbox.refresh();
 
     } catch (err) {
         iziToast.error({
@@ -80,6 +79,7 @@ async function searchFoto(event) {
         toggleLoader(false);
         if (params.page === params.maxPage) {
             loadMoreBtn.hide();
+            loadMoreBtnElement.removeEventListener('click', handleLoadMore);
         } else {
             loadMoreBtn.enable();
         }
