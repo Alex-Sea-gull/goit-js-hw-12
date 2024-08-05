@@ -19,7 +19,7 @@ export function createMarkupImages(images) {
         </a>
     `).join('');
 
-    gallery.innerHTML = markup;
+    gallery.insertAdjacentHTML('beforeend', markup);
 
     const lightbox = new SimpleLightbox('.gallery a', {
         captionsData: 'alt',

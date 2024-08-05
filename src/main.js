@@ -50,12 +50,12 @@ async function searchFoto(event) {
 
         if (params.maxPage > 1) {
             loadMoreBtn.enable();
-            loadMoreBtn.addEventListener('click', handleLoadMore);
+            loadMoreBtnElement.addEventListener('click', handleLoadMore);
         } else {
             loadMoreBtn.hide();
         }
         if (!hits.length) {
-            loadMoreBtn.disable();
+            loadMoreBtn.enable();
             iziToast.error({
                 message: `Sorry, there was an error fetching the images. Please try again later!`,
                 position: 'topRight',
@@ -78,7 +78,7 @@ async function searchFoto(event) {
 
     } finally {
         toggleLoader(false);
-        if (params.page >= params.maxPage) {
+        if (params.page === params.maxPage) {
             loadMoreBtn.hide();
         } else {
             loadMoreBtn.enable();
@@ -88,29 +88,39 @@ async function searchFoto(event) {
 }
 
 async function handleLoadMore() {
-    if (params.page >= params.maxPage) {
-        loadMoreBtn.hide();
-        iziToast.info({
-            message: 'You have reached the end of search results.',
-            position: 'topRight',
-            messageColor: '#ffffff',
-            backgroundColor: '#4e75ff',
-        });
-        return;
-    }
-
-    params.page += 1;
     loadMoreBtn.disable();
-    toggleLoader(true);
+    params.page += 1;
 
     try {
-        const hits = await searchImagesByQuery(params);
+        toggleLoader(true);
+        const { hits } = await searchImagesByQuery(params);
         createMarkupImages(hits);
-        lightbox.refresh();
-    } catch (err) {
-        console.log(err);
+
+        let elem = document.querySelector('.scrol');
+        let rect = elem.getBoundingClientRect();
+
+        window.scrollBy({
+            top: rect.height * 2,
+            left: rect.width,
+            behavior: 'smooth',
+        });
+    } catch (error) {
+        console.log(error);
     } finally {
         toggleLoader(false);
-        loadMoreBtn.enable();
+        if (params.page >= params.maxPage) {
+            loadMoreBtn.hide();
+            iziToast.info({
+                message: 'You have reached the end of search results.',
+                position: 'topRight',
+                messageColor: '#ffffff',
+                backgroundColor: '#4e75ff',
+            });
+
+            loadMoreBtn.hide();
+            loadMoreBtnElement.removeEventListener('click', handleLoadMore);
+        } else {
+            loadMoreBtn.enable();
+        }
     }
 }
