@@ -6,6 +6,7 @@ import "simplelightbox/dist/simple-lightbox.min.css";
 export function createMarkupImages(images) {
     const gallery = document.querySelector('.js-gallery');
     const markup = images.map(({ webformatURL, largeImageURL, tags, likes, views, comments, downloads }) => `
+    <li class="scrol">    
         <a href="${largeImageURL}" class="gallery__link">
             <div class="photo-card">
                 <img src="${webformatURL}" alt="${tags}"/>
@@ -17,6 +18,7 @@ export function createMarkupImages(images) {
                 </div>
             </div>
         </a>
+    </li>
     `).join('');
 
     gallery.insertAdjacentHTML('beforeend', markup);

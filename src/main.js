@@ -7,9 +7,10 @@ import { searchImagesByQuery } from './js/pixabay-api.js';
 import { createMarkupImages, clearGallery } from './js/render-functions.js';
 import { toggleLoader } from './js/loader.js';
 import ButtonService from './js/loadMoreService.js';
+import { getAdapter } from 'axios';
 
 const loadMoreBtnElement = document.querySelector('.btn-primary');
-const loadMoreBtn = new ButtonService(loadMoreBtnElement, '.is-hidden');
+const loadMoreBtn = new ButtonService(loadMoreBtnElement, 'is-hidden');
 loadMoreBtn.hide();
 
 const params = {
@@ -29,6 +30,7 @@ async function searchFoto(event) {
     params.q = form.elements.search.value.toLowerCase().trim();
 
     if (!params.q) {
+        loadMoreBtn.hide();
         iziToast.error({
             message: 'Please enter the data in the input field',
             position: 'topRight',
@@ -55,7 +57,7 @@ async function searchFoto(event) {
             loadMoreBtn.hide();
         }
         if (!hits.length) {
-            loadMoreBtn.show();
+            loadMoreBtn.hide();
             iziToast.error({
                 message: `Sorry, there was an error fetching the images. Please try again later!`,
                 position: 'topRight',
