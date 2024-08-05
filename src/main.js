@@ -9,7 +9,7 @@ import { toggleLoader } from './js/loader.js';
 import ButtonService from './js/loadMoreService.js';
 
 const loadMoreBtnElement = document.querySelector('.btn-primary');
-const loadMoreBtn = new ButtonService(loadMoreBtnElement);
+const loadMoreBtn = new ButtonService(loadMoreBtnElement, '.btn-primary-container');
 loadMoreBtn.hide();
 
 const params = {
